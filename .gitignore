@@ -1,3 +1,5 @@
 .awcc
 __pycache__
 dist
+.gitignore
+test*

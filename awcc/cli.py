@@ -51,6 +51,7 @@ def main():
     
     list_subparser = subparsers.add_parser('list')
     list_subparser.add_argument('list', choices=('objs',))
+    list_subparser.add_argument('--file', '-f', type=str, default=None)
     list_subparser.set_defaults(func=list_subcommand)
 
     get_subparser = subparsers.add_parser('get')
@@ -118,9 +119,15 @@ def get_subcommand(args):
 def list_subcommand(args):
     if args.list =='objs':
         table = []
-        for i in awcc_fs.read_register():
-            entry = awcc_fs.read_register_entry(i)
-            table.append(entry)
+        if args.file != None:
+            for i in awcc_fs.read_register():
+                entry = awcc_fs.read_register_entry(i)
+                if entry[3] == args.file:
+                    table.append(entry)
+        else:
+            for i in awcc_fs.read_register():
+                entry = awcc_fs.read_register_entry(i)
+                table.append(entry)
         print(      f"{"Type":<8} {"Hash\t\t\t\t":<15}   {"Created At":<15} {"Filename":<25}")
         for row in table:
             print(  f"{row[0]:<8} {row[1]:<15} {row[2]:<15} {row[3]:<25}".replace('\n', ''))
