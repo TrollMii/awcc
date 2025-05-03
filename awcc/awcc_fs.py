@@ -34,7 +34,7 @@ def short_to_long_hash(short: str):
         if entry[1].startswith(short):
             return entry[1]
 def read_register_entry(entry: str):
-    _ = entry.split(" ", 4)
+    _ = entry.replace('\n', ' ').split(" ", 4)
     type = _[0]
     hash = _[1]
     date = _[2] + ' ' + _[3]
