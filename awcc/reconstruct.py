@@ -14,24 +14,15 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+from . import awcc_fs
+import os
+def reconstruct(hash):
+    if len(hash) < 40:
+        hash = awcc_fs.short_to_long_hash(hash)
+    register = awcc_fs.read_register()
+    for i in register:
+        entry = awcc_fs.read_register_entry(i)
+        if entry[1] == hash:
+            os.system(f'cp ./.awcc/blob/srcs/{hash[:2]}/{hash[2:]}.blob {entry[3]}')
 
-
-[project]
-name = "awcc"
-version = "0.1.2"
-description = ""
-authors = [
-    {name = "TrollMii",email = "trollmii@outlook.de"}
-]
-readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-]
-license = { file = "LICENSE" }
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-awcc = "awcc.cli:main"
+reconstruct("da")

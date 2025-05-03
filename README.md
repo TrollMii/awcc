@@ -93,3 +93,14 @@ for example:
 awcc get 58f -o test.exe
 ```
 
+### Reconstructing
+so, you want a source file from a older version, use `awcc reconstruct`\
+usage:
+```shell
+awcc reconstruct [hash]
+```
+here is an example of using reconstruct:
+```shell
+awcc reconstruct faceb00k15dead
+```
+and your `file.c` will be reconstructed

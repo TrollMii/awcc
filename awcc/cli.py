@@ -21,7 +21,7 @@ import argparse
 from . import compile
 from . import awcc_fs
 from . import recipes
-
+from . import reconstruct
 
 def main():
     parser = argparse.ArgumentParser("awcc")
@@ -58,6 +58,10 @@ def main():
     get_subparser.add_argument('-o', dest='output')
     get_subparser.set_defaults(func=get_subcommand)
 
+    reconstruct_subparser = subparsers.add_parser('reconstruct')
+    reconstruct_subparser.add_argument('hash')
+    reconstruct_subparser.set_defaults(func=reconstruct_subcommand)
+
     recipe_subparser = subparsers.add_parser('recipe')
     recipe_subparsers= recipe_subparser.add_subparsers(required=True, dest='recipe_command')
 
@@ -92,7 +96,8 @@ def main():
     args.func(args)
 
 
-
+def reconstruct_subcommand(args):
+    reconstruct.reconstruct(args.hash)
 
 
 
