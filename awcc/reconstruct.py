@@ -24,5 +24,3 @@ def reconstruct(hash):
         entry = awcc_fs.read_register_entry(i)
         if entry[1] == hash:
             os.system(f'cp ./.awcc/blob/srcs/{hash[:2]}/{hash[2:]}.blob {entry[3]}')
-
-reconstruct("da")
