@@ -22,6 +22,7 @@ import datetime
 
 def register_file(filename: str, type, hash):
     with open("./.awcc/register", "a") as f:
+        os.makedirs('.awcc', exist_ok=True)
         f.write(f"{type} {hash} {datetime.datetime.utcnow()} {filename}\n")
 
 def read_register() -> list:
