@@ -22,6 +22,7 @@ from . import compile
 from . import awcc_fs
 from . import recipes
 from . import reconstruct
+from . import hasher
 
 def main():
     parser = argparse.ArgumentParser("awcc")
@@ -79,6 +80,10 @@ def main():
 
     init_subparser = subparsers.add_parser('init')
     init_subparser.set_defaults(func=init_subcommand)
+
+    hash_subparser = subparsers.add_parser('hash')
+    hash_subparser.add_argument('--file', '-f', type=str, required=True)
+    hash_subparser.set_defaults(func=hash_subcommand)
     if len(sys.argv[1:]) == 0:
         parser.print_help()
         exit()
@@ -95,6 +100,11 @@ def main():
 
         exit()
     args.func(args)
+
+
+def hash_subcommand(args):
+    print(hasher.getHashOfFile(args.file))
+
 
 
 def reconstruct_subcommand(args):
