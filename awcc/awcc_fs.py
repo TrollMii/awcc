@@ -25,6 +25,8 @@ def register_file(filename: str, type, hash):
         f.write(f"{type} {hash} {datetime.datetime.utcnow()} {filename}\n")
 
 def read_register() -> list:
+    if not os.path.exists('./.awcc/register'):
+        open('./.awcc/register', 'w').close()
     with open("./.awcc/register", "r") as f:
         return f.readlines()
     
