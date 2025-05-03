@@ -113,6 +113,7 @@ def reconstruct_subcommand(args):
 
 
 def init_subcommand(args):
+    os.mkdir('.awcc')
     os.makedirs('.awcc/blob/objs', exist_ok=True)
     os.makedirs('.awcc/blob/srcs', exist_ok=True)
     os.makedirs('.awcc/blob/incl', exist_ok=True)
