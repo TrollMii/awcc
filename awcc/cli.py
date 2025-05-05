@@ -76,7 +76,7 @@ def main():
     recipe_subparser.set_defaults(func=recipe_subcommand)
 
     help_subparser = subparsers.add_parser('help')
-    help_subparser.add_argument('cmd', choices=('compile', 'link', 'list', 'recipe'))
+    help_subparser.add_argument('cmd', choices=('compile', 'link', 'list', 'recipe', 'get', 'reconstruct', 'help', 'init', 'hash'))
 
     init_subparser = subparsers.add_parser('init')
     init_subparser.set_defaults(func=init_subcommand)
