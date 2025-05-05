@@ -97,7 +97,17 @@ def main():
             list_subparser.print_help()
         elif args.cmd == 'recipe':
             recipe_subparser.print_help()
-
+        elif args.cmd == 'get':
+            get_subparser.print_help()
+        elif args.cmd == 'reconstruct':
+            reconstruct_subparser.print_help()
+        elif args.cmd == 'help':
+            help_subparser.print_help()
+        elif args.cmd == 'init':
+            init_subparser.print_help()
+        elif args.cmd == 'recipe':
+            recipe_subparser.print_help()
+        
         exit()
     args.func(args)
 
