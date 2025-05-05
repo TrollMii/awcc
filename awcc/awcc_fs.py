@@ -39,18 +39,18 @@ def short_to_long_hash(short: str):
     print("HASH does not exists in blob")
     exit(1)
 def read_register_entry(entry: str):
-    _ = entry.replace('\n', ' ').split(" ", 4)
+    _ = entry.replace('\n', '').split(" ", 4)
     type = _[0]
     hash = _[1]
     date = _[2] + ' ' + _[3]
-    filename = _[4][:-1]
+    filename = _[4]
     return (type, hash, date, filename)
 def get_filehash(filename):
     r = read_register()
     for i in r:
         entry = read_register_entry(i)
-        if entry[2] == filename:
-            return entry[0]
+        if entry[3] == filename:
+            return entry[1]
         
 def get_hash(filename):
     return hasher.getHashOfFile(filename)

@@ -18,6 +18,7 @@
 import sys
 import os
 import argparse
+import hashlib
 from . import compile
 from . import awcc_fs
 from . import recipes
@@ -33,6 +34,7 @@ def main():
     compile_subparser = subparsers.add_parser("compile")
     
     compile_subparser.add_argument("input", type=str, nargs='*', default=[])
+    compile_subparser.add_argument("--output", "-o", type=str, nargs=1, help="create a symbol link to the blob entry", default=None)
     compile_subparser.add_argument("-O", default=3, dest="opt_level", type=int, choices=(0, 1, 2, 3))
     compile_subparser.add_argument("-g", dest='debug', action="store_true", default=False)
     compile_subparser.add_argument("-ggdb", dest='debug_gdb', action="store_true", default=False)
@@ -48,6 +50,8 @@ def main():
     link_subparser.add_argument("-ggdb", dest='debug_gdb', action="store_true", default=False)
     link_subparser.add_argument("-l", type=str, dest='lib', nargs='*', default=[])
     link_subparser.add_argument("-L", type=str, dest='libpath', nargs='*', default=[])
+
+    link_subparser.add_argument('--output', '-o', type=str, nargs=1, help="add symbol link to blob entry")
     link_subparser.set_defaults(func=link_subcommmand)
     
     list_subparser = subparsers.add_parser('list')
@@ -179,6 +183,16 @@ def link_subcommmand(args):
     flags = " ".join(flags) + '-std=c++17 -no-pie'
 
     compile.link(args.input, flags)
+    if args.output != None:
+        fhash = hashlib.sha1("".join([awcc_fs.short_to_long_hash(i) for i in args.input]).encode("utf-8")).hexdigest()
+        print(fhash)
+        if fhash != None:
+            try:
+                os.remove(f'{args.output[0]}')
+            except:pass
+            os.system(f'ln -s {awcc_fs.blob_getfile(fhash)} {args.output[0]}')
+        else:
+            print("error")
 def compile_subcommand(args):
     if len(args.input) == 0:
         print("No input files")
@@ -197,9 +211,16 @@ def compile_subcommand(args):
             flags.append(i)
     del _flags
     flags = " ".join(flags)
-    
+    if (len(args.input) != 1) & (args.output != None):
+        raise Exception("-o flag is only supported by 1 input file")
     for i in args.input:
         compile.compile(i, flags=flags)
-    
-
-
+    if args.output != None:
+        fhash = hasher.getHashOfFile(args.input[0])
+        if fhash != None:
+            try:
+                os.remove(f'{args.output[0]}')
+            except:pass
+            os.system(f'ln -s {awcc_fs.blob_getfile(fhash)} {args.output[0]}')
+        else:
+            print("error")
