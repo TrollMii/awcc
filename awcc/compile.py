@@ -41,7 +41,7 @@ def compile(file, flags="", gcc="clang"):
     return hash
 
 def link(hashes: list, flags="", ld="clang"):
-    fhash = hashlib.sha1("".join(hashes).encode("utf-8")).hexdigest()
+    fhash = hashlib.sha1("".join([awcc_fs.short_to_long_hash(i) for i in hashes]).encode("utf-8")).hexdigest()
     if awcc_fs.blob_exists(fhash):
         print(f"[LINK:{fhash[:8]}] already in blob")
     else: 
