@@ -103,7 +103,7 @@ def main():
 
 
 def hash_subcommand(args):
-    print(hasher.getHashOfFile(args.file))
+    print(hasher.getHashOfFile(args.file[0]))
 
 
 
