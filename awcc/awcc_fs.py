@@ -36,6 +36,8 @@ def short_to_long_hash(short: str):
         entry = read_register_entry(i)
         if entry[1].startswith(short):
             return entry[1]
+    print("HASH does not exists in blob")
+    exit(1)
 def read_register_entry(entry: str):
     _ = entry.replace('\n', ' ').split(" ", 4)
     type = _[0]

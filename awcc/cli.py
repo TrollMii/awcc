@@ -57,7 +57,7 @@ def main():
 
     get_subparser = subparsers.add_parser('get')
     get_subparser.add_argument('hash')
-    get_subparser.add_argument('-o', dest='output')
+    get_subparser.add_argument('-o', dest='output', required=True)
     get_subparser.set_defaults(func=get_subcommand)
 
     reconstruct_subparser = subparsers.add_parser('reconstruct')
