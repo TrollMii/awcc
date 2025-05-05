@@ -185,7 +185,6 @@ def link_subcommmand(args):
     compile.link(args.input, flags)
     if args.output != None:
         fhash = hashlib.sha1("".join([awcc_fs.short_to_long_hash(i) for i in args.input]).encode("utf-8")).hexdigest()
-        print(fhash)
         if fhash != None:
             try:
                 os.remove(f'{args.output[0]}')
