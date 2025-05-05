@@ -82,7 +82,7 @@ def main():
     init_subparser.set_defaults(func=init_subcommand)
 
     hash_subparser = subparsers.add_parser('hash')
-    hash_subparser.add_argument('--file', '-f', type=str, required=True)
+    hash_subparser.add_argument('file', type=str, required=True)
     hash_subparser.set_defaults(func=hash_subcommand)
     if len(sys.argv[1:]) == 0:
         parser.print_help()
