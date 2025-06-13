@@ -17,8 +17,23 @@
 
 
 import hashlib
+import os
+import platform
+import sys
 
+def get_os_arch():
+    system = platform.system().lower()
+    machine = platform.machine().lower()
+    if machine in ("amd64", "x86_64"):
+        arch = "x64"
+    elif machine in ("arm64", "aarch64"):
+        arch = "arm64"
+    elif machine in ("i386", "i686", "x86"):
+        arch = "x86"
+    else:
+        arch = machine
 
+    return f"{system}-{arch}"
 
 def getHashOfFile(file):
-    return hashlib.sha1(open(file, 'r').read().replace(" ", "").replace("\n", "").replace("\t", "").encode('utf8')).hexdigest()
+    return hashlib.sha1((open(file, 'r').read()).replace(" ", "").replace("\n", "").replace("\t", "").encode('utf8')).hexdigest()+"."+get_os_arch()
